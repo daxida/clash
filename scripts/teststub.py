@@ -1,8 +1,10 @@
 import glob
 import random
 import sys
+from os.path import basename, expanduser, splitext
 from subprocess import run
-from os.path import expanduser, basename, splitext
+
+from tqdm import tqdm
 
 CLASH_DIR = expanduser("~/.local/share/clash/clashes")
 CLASH_EXE = "target/release/clash"
@@ -26,7 +28,7 @@ def check_stubgen(*, clash_ids: list[str], langs_to_check: dict[str, list[str]])
     SEPARATOR = "=" * 30
     results = {lang: {"n_skipped": 0, "n_checked": 0, "n_errors": 0} for lang in langs_to_check}
 
-    for cid in clash_ids:
+    for cid in tqdm(clash_ids, desc="Testing"):
         run([CLASH_EXE, "next", cid], capture_output=True)
 
         for lang, check_cmd in langs_to_check.items():

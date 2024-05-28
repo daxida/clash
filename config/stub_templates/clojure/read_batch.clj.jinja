@@ -1,5 +1,8 @@
-(let [{% for line in read_lines %}{{line}}
-     {% endfor %}]
-  {% for line in nested_lines %}{{line}}
-  {% endfor %}
-  )
+(let [{% for line in read_lines %}
+  {%- if loop.first == false %}
+      {% endif %}{{ line }}
+  {%- endfor %}]
+  {% for line in nested_lines %}
+  {%- if loop.first == false %}
+  {% endif %}{{ line }}
+  {%- endfor %})

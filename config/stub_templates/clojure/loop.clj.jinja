@@ -1,3 +1,5 @@
 (dotimes [{{ index_ident }} {{ count_var }}]
-  {% for line in inner %}{{line}}
-  {% endfor %})
+  {% for line in inner %}
+  {%- if loop.first == false %}
+      {% endif -%}A{{ line }}B
+  {%- endfor %}C)
